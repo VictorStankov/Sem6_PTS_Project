@@ -95,9 +95,9 @@ def home():
 @app.route('/room')
 def room():
     room_code = session.get('room_code')
-    print(rooms, room_code, session.get('display_name'))
-    if room_code is None or session.get('display_name') is None or room_code not in rooms:
-        return redirect((url_for('home')))
+    display_name = session.get('display_name')
+    if room_code is None or display_name is None or room_code not in rooms:
+        return redirect(url_for('home'))
 
     return render_template('room.html')
 
