@@ -15,6 +15,24 @@
     <script type="text/javascript">
     var socketio = io();
 
+    const messages = document.getElementById("messages")
+
+    const joinMessage = (name, action) => {
+        const content = `
+        <div class="text">
+            <span>
+                <strong>${name}</strong>: has ${action} the room
+            </span>
+        </div>
+        `;
+
+        messages.innerHTML += content
+    };
+
+    socketio.on("message", (data) => {
+        joinMessage(data.name, data.action);
+    });
+
     const sendMessage = () => {
         console.log('send')
     }

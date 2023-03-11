@@ -109,35 +109,36 @@ def room():
 
 @socketio.on('connect')
 def connect(auth):
-    room = session.get('room')
+    room_code = session.get('room_code')
     display_name = session.get('display_name')
 
-    if not room or not display_name:
+    if not room_code or not display_name:
         return
 
-    if room not in rooms:
-        leave_room(room)
+    if room_code not in rooms:
+        leave_room(room_code)
         return
 
-    join_room(room)
-    send({'name': display_name, 'message': 'has entered the room.'}, to=room)
-    rooms[room]['members'] += 1
-    print(f'{display_name} joined room {room}')
+    join_room(room_code)
+    send({'name': display_name, 'action': 'joined'}, to=room_code)
+    rooms[room_code]['members'] += 1
+    print(f'{display_name} joined room {room_code}')
 
 
 @socketio.on('disconnect')
 def disconnect():
-    room = session.get('room')
-    name = session.get('name')
+    room_code = session.get('room_code')
+    display_name = session.get('display_name')
     leave_room(room)
 
-    if room in rooms:
-        rooms[room]['members'] -= 1
-        if rooms[room]['members'] <= 0:
-            del rooms[room]
+    if room_code in rooms:
+        rooms[room_code]['members'] -= 1
+        if rooms[room_code]['members'] <= 0:
+            print('Deleting room: ', room_code)
+            del rooms[room_code]
 
-    send({'name': name, 'message': 'has left the room'}, to=room)
-    print(f'{name} has left the room {room}')
+    send({'name': display_name, 'action': 'left'}, to=room_code)
+    print(f'{display_name} has left the room {room_code}')
 
 
 if __name__ == '__main__':
