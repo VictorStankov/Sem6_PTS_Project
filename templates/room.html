@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="message-box">
-    <h2>Chat Room: {{ room }}</h2>
+    <h2>Chat Room: {{ room_name }}</h2>
+        <form>
+            {% for card in cards %}
+                <input type="radio" name="card_input" id={{ card }} value="{{ card }}">
+                <label for={{ card }}>{{ card }}</label>
+            {% endfor %}
+        </form>
+        <button type="button" name="send" id="send_btn" onclick="sendMessage()">Send</button>
     <div class="messages" id="messages"></div>
     </div>
+
     <script type="text/javascript">
     var socketio = io();
 
