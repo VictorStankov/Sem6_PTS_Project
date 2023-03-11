@@ -38,21 +38,21 @@ def home():
 
             if display_name == '':
                 return render_template(
-                    'home2.html',
+                    'home.html',
                     error='Please enter a name.',
                     display_name=display_name, room_code=room_code
                 )
 
             if room_code == '':
                 return render_template(
-                    'home2.html',
+                    'home.html',
                     error='Please enter a room code',
                     display_name=display_name, room_code=room_code
                 )
 
             if room_code not in rooms:
                 return render_template(
-                    'home2.html',
+                    'home.html',
                     error='Room does not exist',
                     display_name=display_name, room_code=room_code
                 )
@@ -66,7 +66,7 @@ def home():
 
             if room_name == '':
                 return render_template(
-                    'home2.html',
+                    'home.html',
                     error='Please enter a name',
                     room_name=room_name,
                     cards=cards
@@ -74,7 +74,7 @@ def home():
 
             if cards not in card_def.keys():
                 return render_template(
-                    'home2.html',
+                    'home.html',
                     error='Incorrect card set!',
                     room_name=room_name,
                     cards=cards
@@ -86,10 +86,10 @@ def home():
             session['room_code'] = room_code
             session['display_name'] = 'Host'
         else:
-            return render_template('home2.html')
+            return render_template('home.html')
 
         return redirect(url_for('room'))
-    return render_template('home2.html')
+    return render_template('home.html')
 
 
 @app.route('/room')
