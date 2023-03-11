@@ -89,25 +89,6 @@ def home():
             return render_template('home2.html')
 
         return redirect(url_for('room'))
-
-
-        # if not name:
-        #     return render_template('home2.html', error='Please enter a name.', code=code, name=name)
-        #
-        # if join is not False and not code:
-        #     return render_template('home2.html', error='Please enter a room code.', code=code, name=name)
-        #
-        # room = code
-        # if create is not False:
-        #     room = generate_unique_code()
-        #     rooms[room] = {'members': 0, 'votes': {}}
-        # elif code not in rooms:
-        #     return render_template('home2.html', error='Room does not exist.', code=code, name=name)
-        #
-        # session['room'] = room
-        # session['name'] = name
-        #
-        # return redirect(url_for('room'))
     return render_template('home2.html')
 
 
@@ -121,35 +102,8 @@ def room():
     return render_template('room.html')
 
 
-# @app.post('/create_room')
-# def create_room():
-#     rooms.append(Room())
-#     return {'room_id': rooms[-1].id}
 
 
-# @app.post('/join_room/<string:room_id>')
-# def join_room(room_id: str):
-#     data = request.get_json()
-#
-#     if not isinstance(data, dict):
-#         return {'message': 'Invalid JSON passed!'}, 400
-#
-#     username = data.get('username', None)
-#
-#     if not isinstance(username, str):
-#         return {'message': 'Invalid parameter for "username"!'}, 400
-#
-#     try:
-#         for room in rooms:
-#             if room.id == room_id:
-#                 room.add_member(username)
-#                 break
-#         else:
-#             return {'message': 'Room not found'}, 404
-#     except DuplicateUserException as e:
-#         return {'message': e.message}, e.http_status
-#
-#     return {}, 200
 
 
 @socketio.on('connect')
