@@ -1,11 +1,12 @@
 import random
 from string import ascii_uppercase
+from secrets import token_bytes
 
 from flask import Flask, request, render_template, session, url_for, redirect
 from flask_socketio import join_room, leave_room, send, SocketIO
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'etrfgfrgdrfg'
+app.config['SECRET_KEY'] = token_bytes(64)
 socketio = SocketIO(app)
 rooms = {}
 
