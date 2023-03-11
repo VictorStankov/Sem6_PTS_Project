@@ -23,6 +23,11 @@ def generate_unique_code():
 
 @app.route('/', methods=['POST', 'GET'])
 def home():
+    card_def = {
+        'fib': [1, 2, 3, 5, 8, 13, 21, 40, 100],
+        'powtwo': [1, 2, 4, 8, 16, 32, 64, 128],
+        'others': [1, 2, 5, 10, 20, 50, 100]
+    }
     if request.method == 'POST':
         create_btn = request.form.get('create', False)
         join_btn = request.form.get('join', False)
@@ -63,13 +68,23 @@ def home():
                 return render_template(
                     'home2.html',
                     error='Please enter a name',
-                    room_name=room_name, cards=cards
+                    room_name=room_name,
+                    cards=cards
+                )
+
+            if cards not in card_def.keys():
+                return render_template(
+                    'home2.html',
+                    error='Incorrect card set!',
+                    room_name=room_name,
+                    cards=cards
                 )
 
             room_code = generate_unique_code()
-            rooms[room_code] = {'members': 0, 'votes': dict}
+            rooms[room_code] = {'members': 0, 'name': room_name, 'cards': card_def[cards]}
             session['room_name'] = room_name
             session['room_code'] = room_code
+            session['display_name'] = 'Host'
         else:
             return render_template('home2.html')
 
