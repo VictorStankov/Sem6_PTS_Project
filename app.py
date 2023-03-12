@@ -89,7 +89,7 @@ def home():
             return render_template('home.html')
 
         return redirect(url_for('room'))
-    return render_template('home.html')
+    return render_template('home.html', error=session['error'] if 'error' in session.keys() else '')
 
 
 @app.route('/room')
