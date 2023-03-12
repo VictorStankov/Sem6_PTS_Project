@@ -4,7 +4,7 @@ The main goal is to simplify scrum estimation sessions by providing an intuitive
 Documentation will be updated based on the included features.
 ## TODO
 - [x] Room creation and joining
-- [ ] Join link and QR code generation
+- [x] Join link and QR code generation
 - [ ] Voting system
 - [ ] Session timing system
 - [ ] Automatic discussion participant choosing
