@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="join_screen">
+        <form method="post" class="join_screen_form">
+            <label>Display Name:</label>
+            <input type="text" placeholder="Enter display name!" name="display_name" value="{{ display_name }}"/>
+            <label>Room Code:</label>
+            <input type="text" placeholder="Enter room code!" name="room_code" value="{{ room_code }}"/>
+            <button type="submit" name="join" class="create_btn">Join Room</button>
+        </form>
+    {% if error %}
+    <ul>
+        <li>{{ error }}</li>
+    </ul>
+    </div>
+    {% endif %}
+{% endblock %}
