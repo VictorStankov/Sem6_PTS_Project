@@ -60,7 +60,7 @@
     width: 100%;
 }
 
-.message-box {
+.room {
     border-color: black;
     border-width: 2px;
     border-style: solid;
@@ -70,11 +70,21 @@
     display: flex;
     flex-direction: column;
     width: 80vw;
-    align-items: stretch;
+    justify-content: start;
+    align-items: center;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2vh;
 }
 
 .messages {
     overflow-y: scroll;
+    height: 3vh;
+    width: 10vw;
 }
 
 h2 {

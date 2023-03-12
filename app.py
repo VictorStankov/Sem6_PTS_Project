@@ -4,10 +4,12 @@ from secrets import token_bytes
 
 from flask import Flask, request, render_template, session, url_for, redirect
 from flask_socketio import join_room, leave_room, send, SocketIO
+from flask_qrcode import QRcode
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = token_bytes(64)
 socketio = SocketIO(app)
+QRcode(app)
 rooms = {}
 
 
