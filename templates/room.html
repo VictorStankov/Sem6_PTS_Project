@@ -2,6 +2,7 @@
 {% block content %}
     <div class="message-box">
     <h2>Chat Room: {{ room_name }}</h2>
+    <h3>{{ room_code }}</h3>
         <form>
             {% for card in cards %}
                 <input type="radio" name="card_input" id={{ card }} value="{{ card }}">
