@@ -39,7 +39,7 @@ def home():
             if display_name == '':
                 return render_template(
                     'home.html',
-                    error='Please enter a name.',
+                    error='Please enter a name',
                     display_name=display_name, room_code=room_code
                 )
 
@@ -117,11 +117,11 @@ def join_room_extern():
 
         if room_code not in rooms.keys():
             print(rooms, room_code)
-            session['error'] = 'Room not found!'
+            session['error'] = 'Room not found'
             return redirect(url_for('home'))
 
         if not isinstance(display_name, str) or len(display_name) < 5:
-            return render_template('join.html', error='Name too short!', room_code=room_code)
+            return render_template('join.html', error='Name too short', room_code=room_code)
         session['room_code'] = room_code
         session['display_name'] = display_name
 

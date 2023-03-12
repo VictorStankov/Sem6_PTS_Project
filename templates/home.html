@@ -12,7 +12,7 @@
                 <option value="powtwo">1, 2, 4, 8, 16, 32, 64, 128</option>
                 <option value="others">1, 2, 5, 10, 20, 50, 100</option>
             </select>
-            <button type="submit" name="create" class="create_btn">Create a Room</button>
+            <button type="submit" name="create" class="create_btn">Create Room</button>
         </form>
         <form method="post" class="join">
             <h3>Join a room</h3>
@@ -20,7 +20,7 @@
             <input type="text" placeholder="Pick a display name!" name="display_name" value="{{ display_name }}"/>
             <label>Room Code:</label>
             <input type="text" placeholder="Enter room code" name="room_code" value="{{ room_code }}"/>
-            <button type="submit" name="join" class="join_btn">Join a Room</button>
+            <button type="submit" name="join" class="join_btn">Join Room</button>
         </form>
     </div>
     {% if error %}
