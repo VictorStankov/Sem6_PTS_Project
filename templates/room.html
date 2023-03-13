@@ -4,7 +4,7 @@
         <div class="title">
             <h2>Chat Room: {{ room_name }}</h2>
             <h3>{{ room_code }}</h3>
-            <img alt="qr_code" width="300" src="{{ qrcode(request.host_url + 'join_room?room=' + room_code) }}"/>
+            <img alt="qr_code" width="300" src="{{ qrcode(request.host_url + 'join_room?room=' + room_code, border=3) }}"/>
         </div>
         <form>
             {% for card in cards %}
