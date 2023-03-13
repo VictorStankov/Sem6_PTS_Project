@@ -4,10 +4,12 @@ from secrets import token_bytes
 
 from flask import Flask, request, render_template, session, url_for, redirect
 from flask_socketio import join_room, leave_room, send, SocketIO
+from flask_qrcode import QRcode
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = token_bytes(64)
 socketio = SocketIO(app)
+QRcode(app)
 rooms = {}
 
 
@@ -39,7 +41,7 @@ def home():
             if display_name == '':
                 return render_template(
                     'home.html',
-                    error='Please enter a name.',
+                    error='Please enter a name',
                     display_name=display_name, room_code=room_code
                 )
 
@@ -89,7 +91,7 @@ def home():
             return render_template('home.html')
 
         return redirect(url_for('room'))
-    return render_template('home.html')
+    return render_template('home.html', error=session['error'] if 'error' in session.keys() else '')
 
 
 @app.route('/room')
@@ -101,10 +103,31 @@ def room():
 
     room_name = rooms[room_code]['name']
     print(rooms, room_code, room_name, rooms[room_code])
-    return render_template('room.html', room_name=room_name, cards=rooms[room_code]['cards'])
+    return render_template('room.html', room_name=room_name, cards=rooms[room_code]['cards'], room_code=room_code)
 
 
+@app.route('/join_room', methods=['GET', 'POST'])
+def join_room_extern():
+    if request.method == 'GET':
+        room_code = request.args.get('room')
+        if not isinstance(room_code, str) or room_code not in rooms:
+            return redirect(url_for('home'))
+        return render_template('join.html', room_code=room_code)
+    else:
+        room_code = request.form.get('room_code')
+        display_name = request.form.get('display_name')
 
+        if room_code not in rooms.keys():
+            print(rooms, room_code)
+            session['error'] = 'Room not found'
+            return redirect(url_for('home'))
+
+        if not isinstance(display_name, str) or len(display_name) < 5:
+            return render_template('join.html', error='Name too short', room_code=room_code)
+        session['room_code'] = room_code
+        session['display_name'] = display_name
+
+        return redirect(url_for('room'))
 
 
 @socketio.on('connect')
