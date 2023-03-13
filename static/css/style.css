@@ -83,8 +83,8 @@
 
 .messages {
     overflow-y: scroll;
-    height: 3vh;
-    width: 10vw;
+    height: 80vh;
+    width: 100%;
 }
 
 h2 {
