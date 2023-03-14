@@ -1,6 +1,7 @@
-import uuid
-from application.user import User
+from typing import List
+
 from application.exceptions import DuplicateUserException
+from application.user import User
 
 
 class Room:
