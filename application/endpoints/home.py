@@ -84,6 +84,12 @@ def home():
                 room_code=room_code
             )
 
+        if rooms[room_code].member_exists(display_name):
+            return render_template(
+                'home.html',
+                error='User with that name has already joined'
+            )
+
         if not isinstance(room_code, str) or room_code == '':
             return render_template(
                 'home.html',

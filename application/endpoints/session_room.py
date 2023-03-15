@@ -38,6 +38,10 @@ def join_room_post():
 
     if not isinstance(display_name, str) or len(display_name) < 5:
         return render_template('join.html', error='Name too short', room_code=room_code)
+
+    if rooms[room_code].member_exists(display_name):
+        return render_template('join.html', error='User with that name has already joined', room_code=room_code)
+
     session['room_code'] = room_code
     session['display_name'] = display_name
 
