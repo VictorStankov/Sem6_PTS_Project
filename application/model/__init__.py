@@ -1,1 +1,1 @@
-import application.model.room
+from application.model.room import *
