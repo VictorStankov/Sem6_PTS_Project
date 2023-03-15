@@ -10,11 +10,10 @@ def room():
     if room_code is None or display_name is None or room_code not in rooms:
         return redirect(url_for('home'))
 
-    room_name = rooms[room_code]['name']
     return render_template(
         'room.html',
-        room_name=room_name,
-        cards=rooms[room_code]['cards'],
+        room_name=rooms[room_code].room_name,
+        cards=rooms[room_code].cards,
         room_code=room_code
     )
 

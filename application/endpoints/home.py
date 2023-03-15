@@ -3,7 +3,7 @@ from string import ascii_uppercase
 
 from flask import request, render_template, session, url_for, redirect
 
-from application import app, rooms
+from application import app, rooms, Room
 
 card_def = {
     'fib': [1, 2, 3, 5, 8, 13, 21, 40, 100],
@@ -56,7 +56,12 @@ def home():
             )
 
         room_code = generate_unique_code()
-        rooms[room_code] = {'members': 0, 'name': room_name, 'cards': card_def[cards]}
+        rooms[room_code] = Room(
+            room_name=room_name,
+            room_code=room_code,
+            cards=card_def[cards]
+        )
+
         session['room_name'] = room_name
         session['room_code'] = room_code
         session['display_name'] = 'Host'
@@ -71,7 +76,8 @@ def home():
                 error='Please enter a name',
                 room_code=room_code
             )
-        elif len(display_name) < 5:
+
+        if len(display_name) < 5:
             return render_template(
                 'home.html',
                 error='Name too short',

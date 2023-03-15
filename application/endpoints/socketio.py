@@ -18,7 +18,7 @@ def connect(auth):
 
     join_room(room_code)
     send({'name': display_name, 'action': 'joined'}, to=room_code)
-    rooms[room_code]['members'] += 1
+    rooms[room_code].add_member(display_name)
     print(f'{display_name} joined room {room_code}')
 
 
@@ -29,8 +29,8 @@ def disconnect():
     leave_room(room_code)
 
     if room_code in rooms:
-        rooms[room_code]['members'] -= 1
-        if rooms[room_code]['members'] <= 0:
+        rooms[room_code].remove_member(display_name)
+        if len(rooms[room_code]) <= 0:
             print('Deleting room: ', room_code)
             del rooms[room_code]
 
