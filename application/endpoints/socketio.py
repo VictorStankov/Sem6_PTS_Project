@@ -1,7 +1,7 @@
 from flask import session
 from flask_socketio import join_room, leave_room, send
 
-from application import socket_app, rooms
+from application import socket_app, ScrumPoker
 
 
 @socket_app.on('connect')
@@ -12,13 +12,13 @@ def connect(auth):
     if not room_code or not display_name:
         return
 
-    if room_code not in rooms:
+    if not ScrumPoker.room_exists(room_code):
         leave_room(room_code)
         return
 
     join_room(room_code)
     send({'name': display_name, 'action': 'joined'}, to=room_code)
-    rooms[room_code].add_member(display_name)
+    ScrumPoker.get_room(room_code).add_member(display_name)
     print(f'{display_name} joined room {room_code}')
 
 
@@ -28,11 +28,12 @@ def disconnect():
     display_name = session.get('display_name')
     leave_room(room_code)
 
-    if room_code in rooms:
-        rooms[room_code].remove_member(display_name)
-        if len(rooms[room_code]) <= 0:
+    if ScrumPoker.room_exists(room_code):
+        room = ScrumPoker.get_room(room_code)
+        room.remove_member(display_name)
+        if len(room) <= 0:
             print('Deleting room: ', room_code)
-            del rooms[room_code]
+            ScrumPoker.delete_room(room_code)
 
     send({'name': display_name, 'action': 'left'}, to=room_code)
     print(f'{display_name} has left the room {room_code}')

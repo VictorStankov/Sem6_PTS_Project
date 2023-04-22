@@ -88,4 +88,4 @@ class HomeEndpoints:
         else:
             return render_template('home.html')
 
-    return redirect(url_for('room'))
+        return redirect(url_for('get_room'))
