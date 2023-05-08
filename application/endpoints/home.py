@@ -70,7 +70,7 @@ class HomeEndpoints:
                     display_name=display_name
                 )
 
-            if ScrumPoker.room_exists(room_code):
+            if not ScrumPoker.room_exists(room_code):
                 return render_template(
                     'home.html',
                     error='Room does not exist',
