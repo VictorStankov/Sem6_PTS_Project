@@ -4,7 +4,9 @@
         <div class="title">
             <h2>Chat Room: {{ room_name }}</h2>
             <h3>{{ room_code }}</h3>
-            <img alt="qr_code" width="300" src="{{ qrcode(request.host_url + 'join_room?room=' + room_code, border=3) }}"/>
+            <button type="button" name="show_url" id="show_url_btn" onclick="showUrl()">Show Link</button>
+            <a hidden="hidden" id="url" href="{{ request.host_url + 'join_room?room=' + room_code }}">{{ request.host_url + 'join_room?room=' + room_code }}</a>
+            <img hidden="hidden" id="qr_code" alt="qr_code" width="300" src="{{ qrcode(request.host_url + 'join_room?room=' + room_code, border=3) }}"/>
         </div>
         <form>
             {% for card in cards %}
@@ -39,6 +41,20 @@
 
     const sendMessage = () => {
         console.log('send')
+    }
+
+    const showUrl = () => {
+        const url = document.getElementById("url")
+        const qrCode = document.getElementById("qr_code")
+        const urlButton = document.getElementById("show_url_btn")
+
+        if (url.hidden)
+            urlButton.innerText = "Hide Link"
+        else
+            urlButton.innerText = "Show Link"
+
+        url.hidden = !url.hidden
+        qrCode.hidden = !qrCode.hidden
     }
     </script>
 {% endblock %}
