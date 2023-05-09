@@ -39,7 +39,15 @@ class HomeEndpoints:
                     cards=cards
                 )
 
-            room = ScrumPoker.add_room(room_name, cards)
+            try:
+                room = ScrumPoker.add_room(room_name, cards)
+            except Exception:
+                return render_template(
+                    'home.html',
+                    error='Maximum number of rooms reached! Try again later.',
+                    room_name=room_name,
+                    cards=cards
+                )
 
             session['room_name'] = room.room_name
             session['room_code'] = room.room_code

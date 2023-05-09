@@ -2,7 +2,7 @@
 {% block content %}
 <div class="home-screen">
     <div class="selections">
-        <form method="post" class="create">
+        <form method="post" class="create" autocomplete="off">
             <h3>Create Scrum Poker Room</h3>
             <label>Name:</label>
             <input type="text" placeholder="Pick a room name!" name="room_name" value="{{ room_name }}"/>
@@ -14,7 +14,7 @@
             </select>
             <button type="submit" name="create" class="create_btn">Create Room</button>
         </form>
-        <form method="post" class="join">
+        <form method="post" class="join" autocomplete="off">
             <h3>Join a room</h3>
             <label>Name:</label>
             <input type="text" placeholder="Pick a display name!" name="display_name" value="{{ display_name }}"/>

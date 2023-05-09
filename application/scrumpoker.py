@@ -26,6 +26,9 @@ class ScrumPoker:
                 room_id += random.choice(ascii_uppercase)
             if room_id[:5] + '-' + room_id[5:] not in cls.rooms:
                 break
+            else:
+                if len(cls.rooms) >= len(ascii_uppercase) ** 10:
+                    raise Exception
         return room_id[:5] + '-' + room_id[5:]
 
     @classmethod
